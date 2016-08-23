@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.22.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.22.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+.map-overlay-container {
+    position: absolute;
+    width: 25%;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    z-index: 1;
+}
+
+.map-overlay {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow:0 1px 2px rgba(0,0,0,0.20);
+}
+
+.map-overlay h2,
+.map-overlay p {
+    margin: 0 0 10px;
+}
+</style>
+
+<div id='map'></div>
+
+<div class='map-overlay-container'>
+  <div class='map-overlay'>
+    <h2 id='location-title'></h2>
+    <p id='location-description'></p>
+    <small>Last Updated: 20160823</small>
+  </div>
+</div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiYnJpYW5raW5nZXJ5IiwiYSI6ImNpbjZldGhuZDBmMGF2OWtrbjl0bW04dncifQ.UaS61wgbnx-HVFU2k83NZA';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v9',
+    center: [-74.0315, 40.6989],
+    maxZoom: 20,
+    minZoom: 1,
+    zoom: 1
+});
+
+var title = document.getElementById('location-title');
+var description = document.getElementById('location-description');
+
+var locations = [
+{
+    "title": "City of Newport News, VA",
+    "description": "Home since 1994",
+    "camera": {
+        center: [-76.5270, 37.0787],
+        bearing: 45,
+        zoom: 10
+    }
+}, {
+    "title": "City of Newport News Waterworks Department",
+    "description": "Currently employed since Feb 2015",
+    "camera": {
+        center: [-76.47460, 37.08683],
+        bearing: 0,
+        zoom: 16
+    }
+}, {
+    "title": "Old Dominion University",
+    "description": "Class of 2014. BS in Geography. Geographic Information Sciences Certificate",
+    "camera": {
+        center: [-76.3095, 36.8849],
+        bearing: 0,
+        zoom: 15
+    }
+}, {
+    "title": "Elmhurst College",
+    "description": "2016 MS in Geographic Information Systems (GIS)",
+    "camera": {
+        center: [-87.94878, 41.89702],
+        bearing: 0,
+        zoom: 16
+    }
+}, {
+    "title": "Fort Belvoir, VA",
+    "description": "2009 Army 12Y AIT - Introduction to GIS",
+    "camera": {
+        center: [-77.1614, 38.7107],
+        zoom: 13,
+        pitch: 30
+    }    
+}, {
+    "title": "Fort Bragg, NC",
+    "description": "The main post where I was assigned while active duty.",
+    "camera": {
+        center: [-79.1874, 35.1522],
+        zoom: 10,
+        pitch: 30
+    }
+}, {
+    "title": "Heidelberg, Germany",
+    "description": "2010 Army TDY",
+    "camera": {
+        center: [8.6937, 49.4082],
+        zoom: 12,
+        bearing: 0,
+        pitch: 0
+    }
+}, {
+    "title": "Stuttgart, Germany",
+    "description": "2011 Army TDY",
+    "camera": {
+        center: [9.1928, 48.7856],
+        zoom: 12,
+        bearing: 0,
+        pitch: 0
+    }
+}, {
+    "title": "Fort Huachuca, AZ",
+    "description": "Instructed at Army AIT for Imagery Analysts",
+    "camera": {
+        center: [-110.3194, 31.5607],
+        zoom: 11,
+        pitch: 30
+    }    
+}, {
+    "title": "Mazar-i-Sharif",
+    "description": "Glad to only have lost 8 months of my life...",
+    "camera": {
+        center: [67.228, 36.6838],
+        zoom: 11,
+        bearing: 0,
+        pitch: 0
+    }
+}
+
+
+
+];
+
+function highlightBorough(code) {
+    // Only show the polygon feature that cooresponds to `borocode` in the data
+    map.setFilter('highlight', ["==", "borocode", code]);
+}
+
+function playback(index) {
+    title.textContent = locations[index].title;
+    description.textContent = locations[index].description;
+
+    highlightBorough(locations[index].id ? locations[index].id : '');
+
+    // Animate the map position based on camera properties
+    map.flyTo(locations[index].camera);
+
+    map.once('moveend', function() {
+        // Duration the slide is on screen after interaction
+        window.setTimeout(function() {
+            // Increment index
+            index = (index + 1 === locations.length) ? 0 : index + 1;
+            playback(index);
+        }, 5000); // After callback, show the location for 5 seconds. 10000 for 10 seconds
+    });
+}
+
+// Display the last title/description first
+title.textContent = locations[locations.length - 1].title;
+description.textContent = locations[locations.length - 1].description;
+
+map.on('load', function() {
+
+    // Polygon fill for each borough of new york city.
+    // Used to highlight when its borough is active.
+    map.addSource("boroughs", {
+        "type": "vector",
+        "url": "mapbox://mapbox.8ibmsn6u"
+    });
+
+    map.addLayer({
+        "id": "highlight",
+        "type": "fill",
+        "source": "boroughs",
+        "source-layer": "original",
+        "paint": {
+            "fill-color": "#fd6b50",
+            "fill-opacity": 0.25
+        },
+        "filter": ["==", "borocode", ""]
+    }, 'neighborhood_small_label'); // Place polygon under the neighborhood labels.
+
+    // Start the playback animation for each borough
+    playback(0);
+});
+</script>
+
+</body>
+</html>
