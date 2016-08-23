@@ -43,7 +43,6 @@
   <div class='map-overlay'>
     <h2 id='location-title'></h2>
     <p id='location-description'></p>
-    <small>Last Updated: 20160823</small>
   </div>
 </div>
 
@@ -61,9 +60,10 @@ var map = new mapboxgl.Map({
 var title = document.getElementById('location-title');
 var description = document.getElementById('location-description');
 
+
 var locations = [
 {
-    "title": "City of Newport News, VA",
+    "title": "1. City of Newport News, VA",
     "description": "Home since 1994",
     "camera": {
         center: [-76.5270, 37.0787],
@@ -71,39 +71,24 @@ var locations = [
         zoom: 10
     }
 }, {
-    "title": "City of Newport News Waterworks Department",
-    "description": "Currently employed since Feb 2015",
+    "title": "2. Fort Jackson, SC",
+    "description": "2009 Army Basic Training",
     "camera": {
-        center: [-76.47460, 37.08683],
+        center: [-80.839099, 34.037908],
         bearing: 0,
-        zoom: 16
+        zoom: 10
     }
 }, {
-    "title": "Old Dominion University",
-    "description": "Class of 2014. BS in Geography. Geographic Information Sciences Certificate",
-    "camera": {
-        center: [-76.3095, 36.8849],
-        bearing: 0,
-        zoom: 15
-    }
-}, {
-    "title": "Elmhurst College",
-    "description": "2016 MS in Geographic Information Systems (GIS)",
-    "camera": {
-        center: [-87.94878, 41.89702],
-        bearing: 0,
-        zoom: 16
-    }
-}, {
-    "title": "Fort Belvoir, VA",
+    "title": "3. Fort Belvoir, VA",
     "description": "2009 Army 12Y AIT - Introduction to GIS",
     "camera": {
-        center: [-77.1614, 38.7107],
-        zoom: 13,
-        pitch: 30
-    }    
+        center: [-77.1392, 38.7107],
+        zoom: 14,
+        bearing: -25,
+        pitch: 0
+    }
 }, {
-    "title": "Fort Bragg, NC",
+    "title": "4. Fort Bragg, NC",
     "description": "The main post where I was assigned while active duty.",
     "camera": {
         center: [-79.1874, 35.1522],
@@ -111,7 +96,7 @@ var locations = [
         pitch: 30
     }
 }, {
-    "title": "Heidelberg, Germany",
+    "title": "5. Heidelberg, Germany",
     "description": "2010 Army TDY",
     "camera": {
         center: [8.6937, 49.4082],
@@ -120,34 +105,64 @@ var locations = [
         pitch: 0
     }
 }, {
-    "title": "Stuttgart, Germany",
+    "title": "6. Stuttgart, Germany",
     "description": "2011 Army TDY",
     "camera": {
         center: [9.1928, 48.7856],
         zoom: 12,
         bearing: 0,
         pitch: 0
-    }
+    }  
 }, {
-    "title": "Fort Huachuca, AZ",
-    "description": "Instructed at Army AIT for Imagery Analysts",
+    "title": "7. Fort Huachuca, AZ",
+    "description": "Instructed at Army AIT for Imagery Analysts for two TDYs",
     "camera": {
         center: [-110.3194, 31.5607],
         zoom: 11,
         pitch: 30
     }    
 }, {
-    "title": "Mazar-i-Sharif",
+    "title": "8. Mazar-i-Sharif",
     "description": "Glad to only have lost 8 months of my life...",
     "camera": {
         center: [67.228, 36.6838],
         zoom: 11,
         bearing: 0,
         pitch: 0
+    }  
+}, {
+    "title": "9. Old Dominion University",
+    "description": "2014 BS in Geography, Geographic Information Sciences Certificate",
+    "camera": {
+        center: [-76.3095, 36.8849],
+        bearing: 0,
+        zoom: 15
     }
+}, {
+    "title": "10. Elmhurst College",
+    "description": "2016 MS in Geographic Information Systems (GIS)",
+    "camera": {
+        center: [-87.94878, 41.89702],
+        bearing: 0,
+        zoom: 16
+    }  
+}, {
+    "title": "11. City of Newport News Department of Public Works",
+    "description": "GIS Cartographic Technician Aug 2014 - Feb 2015",
+    "camera": {
+        center: [-76.503524, 37.108947],
+        bearing: 0,
+        zoom: 16
+    }  
+}, {
+    "title": "12. City of Newport News Waterworks Department",
+    "description": "GIS Programmer Analyst Feb 2015 - Present",
+    "camera": {
+        center: [-76.47460, 37.08683],
+        bearing: 0,
+        zoom: 16
+    }  
 }
-
-
 
 ];
 
@@ -203,6 +218,9 @@ map.on('load', function() {
     // Start the playback animation for each borough
     playback(0);
 });
+  
+map.addControl(new mapboxgl.Navigation());
+  
 </script>
 
 </body>
