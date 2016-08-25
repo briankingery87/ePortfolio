@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.22.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.22.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <style>
+        #map {
+            position: fixed;
+            width: 50%;
+        }
+
+        #features {
+            width: 50%;
+            margin-left: 50%;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-y: scroll;
+            background-color: #fafafa;
+        }
+
+        section {
+            padding: 25px 50px;
+            line-height: 25px;
+            border-bottom: 1px solid #ddd;
+            opacity: 0.25;
+            font-size: 13px;
+        }
+
+            section.active {
+                opacity: 1;
+            }
+
+            section:last-child {
+                border-bottom: none;
+                margin-bottom: 890px;
+            }
+    </style>
+
+    <div id='map'></div>
+    <div id='features'>
+        <section id='job1' class='active'>
+            <h1>STEP Intern</h1>
+            <h2>US Army Coprs of Engineers Norfolk, Virginia Area</h2>
+            <h3>Summers of 2009, 2010, and 2011</h3>
+        </section>
+        <section id='job2'>
+            <h1>Research Assistant</h1>
+            <h2> Virginia Modeling, Analysis & Simulation Center (VMASC) Suffolk, VA</h2>
+            <h3>October 2012 - August 2013</h3>
+            <p>I would assist my supervisors on multiple research projects by collecting, cleaning up, and inputting data.  I utilized Microsoft Excel, SPSS, and ArcGIS to analysis this data. I was also tasked with learning and utilizing Hazus MH 2.1 (GIS modeling software) to produce a number of flood maps of the Hampton Roads, VA for a research project regional study.</p>
+        </section>
+        <section id='job3'>
+            <h1>GIS Technician</h1>
+            <h2>Old Dominion University Norfolk, VA</h2>
+            <h3>June 2014 - August 2014</h3>
+            <p>I worked independently, and in a team, to preformed regular maintenance of data within geodatabases. Extensive time was spent manipulating geospatial data, digitizing campus floor plans, and creating geographic networks for use in Network Analyst as a part of ODU’s emergency evacuation project.  I developed an intimate understanding of multiple ArcGIS tools.</p>
+        </section>
+        <section id='job4'>
+            <h1>Graduate Teaching Assistant</h1>
+            <h2>The George Washington University Washington, DC</h2>
+            <h3>August 2013 - May 2015</h3>
+            <p>I Assisted the professor by making/grading homework assignments, quizzes and tests as well as day-to-day classroom management. Developed good interpersonal skills by interacting with students.</p>
+        </section>
+        <section id='job5'>
+            <h1>Assistant GIS/Research Associate</h1>
+            <h2>Casey Trees Washington, DC</h2>
+            <h3>September 2014 - May 2015</h3>
+            <p>Fulfilled map request for both official and non-official use by analyzing, creating, and editing geospatial data, Utilized Model Builder and Python to automate batch map processes, created and managed geodatabases.  Temporarily fulfilled the duties the head GIS analyst while the hiring process was taking place.  These duties include using critical thinking and analytical skills to trouble shoot both GIS and non-GIS problems, contacting ESRI about license renewals and software issues, as well as everyday maintenance of the SQL backup servers.  While in this role a learned the value of interdepartmental communication.</p>
+        </section>
+        <section id='job6'>
+            <h1>Applied Science Research Consultant - Team Lead</h1>
+            <h2>NASA Langley Research Center Hampton, VA </h2>
+            <h3>June 2015 - August 2015</h3>
+            <p>Lead the team in all aspects of the project from begging to end. This included being the point of contact for our partner organization, delegating task to team members, and making sure deliverables were turned in on time.</p>
+        </section>
+        <section id='job7'>
+            <h1>GIT Associate III</h1>
+            <h2>Michael Baker International Virginia Beach, VA</h2>
+            <h3>September 2015 - March 2016</h3>
+            <p>I served as a geospatial information technology associate and perform a wide range of GIS tasks in support different projects and clients.  This included client interviews in support of needs assessments, requirements gathering, as well as data analysis and map production.  My list of former clients included the City of Norfolk, Virginia, Naval Facilities Engineering command (NAVFAC), as well as a wide variety of state and local entities that are migrating to Next Generation 911 (NG 9-1-1) technology.   Additionally, I supported several Michael Baker offices and departments with technical GIS support.</p>
+        </section>
+        <section id='job8'>
+            <h1>Adjunct Instructor of Political Science and Geography</h1>
+            <h2>Old Dominion University Norfolk, VA</h2>
+            <h3>January 2016 - Present</h3>
+            <p>Educate students in the theory and practice of GIS.  Write curriculum and labs for an upper-level Geographic Information Systems class.</p>
+        </section>
+        <section id='job9'>
+            <h1>GIS Programmer Analyst</h1>
+            <h2>Department of IT City of Newport News, VA</h2>
+            <h3>May 2016 - Present</h3>
+        </section>
+    </div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiemFuZGJrIiwiYSI6ImNaU1VBMjAifQ.6zqCsVQyip7Xe1LHkMv8og';
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v9',
+            center: [-76.306376, 36.856736],
+            zoom: 15.5,
+            bearing: 27,
+            pitch: 20
+        });
+
+        var chapters = {
+            'job1': {
+                bearing: 27,
+                center: [-76.306376, 36.856736],
+                zoom: 15.5,
+                pitch: 20
+            },
+            'job2': {
+                center: [-76.418200, 36.869359],
+                bearing: 0,
+                zoom: 15,
+                pitch: 0
+            },
+            'job3': {
+                bearing: 60,
+                center: [-76.307576, 36.885561],
+                zoom: 15.5,
+                speed: 0.6,
+                pitch: 40
+            },
+            'job4': {
+                bearing: 0,
+                center: [-77.048565, 38.898143],
+                zoom: 15.5
+            },
+            'job5': {
+                bearing: 0,
+                center: [-76.990832, 38.928472],
+                zoom: 18,
+                pitch: 20,
+                speed: 0.5
+            },
+            'job6': {
+                bearing: 10,
+                center: [-76.378648, 37.086778],
+                zoom: 14
+            },
+            'job7': {
+                bearing: 0,
+                center: [-76.126852, 36.835855],
+                zoom: 12.5,
+                pitch: 40
+            },
+            'job8': {
+                bearing: 60,
+                center: [-76.307576, 36.885561],
+                zoom: 15.5,
+                pitch: 40
+            },
+            'job9': {
+                bearing: 0,
+                center: [-76.504182, 37.108560],
+                zoom: 14.3,
+                pitch: 20
+            }
+        };
+
+        // On every scroll event, check which element is on screen
+        window.onscroll = function () {
+            var chapterNames = Object.keys(chapters);
+            for (var i = 0; i < chapterNames.length; i++) {
+                var chapterName = chapterNames[i];
+                if (isElementOnScreen(chapterName)) {
+                    setActiveChapter(chapterName);
+                    break;
+                }
+            }
+        };
+
+        var activeChapterName = 'job1';
+        function setActiveChapter(chapterName) {
+            if (chapterName === activeChapterName) return;
+
+            map.flyTo(chapters[chapterName]);
+
+            document.getElementById(chapterName).setAttribute('class', 'active');
+            document.getElementById(activeChapterName).setAttribute('class', '');
+
+            activeChapterName = chapterName;
+        }
+
+        function isElementOnScreen(id) {
+            var element = document.getElementById(id);
+            var bounds = element.getBoundingClientRect();
+            return bounds.top < window.innerHeight && bounds.bottom > 0;
+        }
+
+    </script>
+
+</body>
+</html>
