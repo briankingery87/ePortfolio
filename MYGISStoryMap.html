@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.22.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.22.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <style>
+        #map {
+            position: fixed;
+            width: 50%;
+        }
+
+        #features {
+            width: 50%;
+            margin-left: 50%;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-y: scroll;
+            background-color: #fafafa;
+        }
+
+        section {
+            padding: 25px 50px;
+            line-height: 25px;
+            border-bottom: 1px solid #ddd;
+            opacity: 0.25;
+            font-size: 13px;
+        }
+
+            section.active {
+                opacity: 1;
+            }
+
+            section:last-child {
+                border-bottom: none;
+                margin-bottom: 890px;
+            }
+    </style>
+
+    <div id='map'></div>
+    <div id='features'>
+        <section id='item1' class='active'>
+            <h1>US Army - Advanced Individual Training (AIT)</h1>
+            <h2>Fort Belvoir, VA</h2>
+            <h3>July 2009 - January 2010</h3>
+            <p>The start of my GIS career. I attended the <a href = http://media.wix.com/ugd/a69bbb_a42be19d0f424a57bd9bdccf4b24094f.pdf>National Geospatial-Intelligence College</a>
+               where I went through an intensive introductory program to geospatial intelligence analysis. I graduated <i><b>Valedictorian Honor Graduate</b></i> of class 11-09.</p>
+        </section>
+        <section id='item2'>
+            <h1>First Duty Station</h1>
+            <h2>Fort Bragg, NC</h2>
+            <h3>February 2010 - April 2013</h3>
+            <p>This was my home base while active duty. I was in the 20th Engineer Brigade, 30th Engineer Battalion, 100th Engineer Company. I was given the opportunity to travel and practice GIS all over the world.</p>
+        </section>
+        <section id='item3'>
+            <h1>First trip to Germany</h1>
+            <h2>Heidelberg, Germany</h2>
+            <h3>May 2010 - June 2010</h3>
+            <p>I was awarded an Army Achievement Medal for being the top contributor of GIS data creation for the 60th Engineer Geospatial Planning Cell Detachment.</p>
+        </section>
+        <section id='item4'>
+            <h1>Second trip to Germany</h1>
+            <h2>Stuttgart, Germany</h2>
+            <h3>April 2011 - July 2011</h3>
+            <p>Deployed in support of Special Operations Task Force North with United States Africa Command (AFRICOM) to fulfill all GEOINT requests for Special Operation units</p>
+        </section>
+        <section id='item5'>
+            <h1>Guest AIT Instructor</h1>
+            <h2>Fort Huachuca, AZ</h2>
+            <h3>2010 and 2011</h3>
+            <p>Instructed at the <a href=http://www.goarmy.com/careers-and-jobs/browse-career-and-job-categories/computers-and-technology/geospatial-intelligence-imagery-analyst.html>35G</a> AIT for Imagery Analysts 
+               for two seperate TDYs. Assisted in the instruction of HLZ, slope calculation, and terrain visualization to analysts in training.</p>
+        </section>
+        <section id='item6'>
+            <h1>Tour in Afghanistan</h1>
+            <h2>Mazar-i-Sharif, Afghanistan</h2>
+            <h3>February 2012 - October 2012</h3>
+            <p>Deployed in support of Operation Enduring Freedom XVIII as an asset of Combined Joint Special Operations Task Force – Afghanistan (CJSOTF-A) assigned to Task Force Balkh serving as a GEOINT analyst to develop all custom
+               mapping solutions for intelligence and mission support requirements. Collaborated with mission partners such as National Geospatial-Intelligence Agency (NGA) and All-Source analysts to perform all mapping needs
+               for Village Stability Operations in support of all Task Force Balkh Special Operations assets.</p>
+        </section>
+        <section id='item7'>
+            <h1>Old Dominion University - Undergrad</h1>
+            <h2>Norfolk, VA</h2>
+            <h3>May 2013 - August 2014</h3>
+            <p>I earned a BS in Geography and a Geographic Information Sciences Certificate. While I was finishing my undergrad work, I interned as a GIS Technician where I worked on creating geometric networks across campus for 
+               emergency evacuation routes. Two products that I would like to highlight from my time at ODU is a poster I put together for 2013 GIS Day, <a href = http://media.wix.com/ugd/a69bbb_9e6ffc7396d94a3c9b20839f57697499.pdf>
+               Breaking the Language Barrier using GIS</a>, and <a href = http://media.wix.com/ugd/a69bbb_abf6824dfaef4a57bc8e3da8b4651c2b.pdf>Mapping Environmental Injustice in Virginia</a>.</p>
+        </section>
+        <section id='item8'>
+            <h1>City of Newport News Department of Public Works</h1>
+            <h2>Newport News, VA</h2>
+            <h3>August 2014 - February 2015</h3>
+            <p>I worked for the Asset Management Division as a GIS Technician where my main task was to collect and verify field data for the City Property Survey Project. This project's main goal was to collect data and photos of city
+               property for insurance purposes in case of damage from a hurricane, for example.</p>
+        </section>
+        <section id='item9'>
+            <h1>Elmhurst College - Grad School</h1>
+            <h2>Elmhurst, IL</h2>
+            <h3>August 2014 - August 2016</h3>
+            <p>I earned a MS in Geographic Information Systems. During the graduate program, I interned as a <a href = http://bkingery.wixsite.com/portfolio/graduate-internship>GIS Consultant</a> for Dr. Thomas Chapman. The goal of
+               my internship was to develop a pedagogical framework and content to eventually bring Old Dominion University’s on-campus <a href = http://bkingery.wixsite.com/odugis>Introductory GIS course</a> online. I created a
+               curriculum, provided content, developed excercises and provided data.</p>
+            <p>My <a href = http://bkingery.wixsite.com/portfolio/graduate-thesis>graduate geospatial thesis</a> focused on predicting future water consumption for the City of Newport News, VA using land use. I focused on different
+               scenarios and came up with this <a href = http://www.arcgis.com/home/item.html?id=ac419706685d49169dc6e46c8645cfa0>Story Map</a> which served as the start to my analysis. 
+               <a href = http://media.wix.com/ugd/a69bbb_7f2c87afd2f741b6a034672d59c74aeb.pdf>Paper</a> - <a href = http://media.wix.com/ugd/a69bbb_a9bb77b9060f4adbb1e10cba0c1d10ad.pdf>Presentation</a></p>          
+        </section>
+        <section id='item10'>
+            <h1>City of Newport News Waterworks Department</h1>
+            <h2>Newport News, VA</h2>
+            <h3>February 2015 - Present</h3>
+            <p>GIS Programmer Analyst for Newport News Waterworks. I have the opportunity to create many different types of geospatial products. I leverage the power of Python to create tools, apps, and maps to make it easier for employees of 
+               Newport News Waterworks to do their jobs.</p>        
+        </section>
+    </div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiemFuZGJrIiwiYSI6ImNaU1VBMjAifQ.6zqCsVQyip7Xe1LHkMv8og';
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v9',
+            center: [-77.1392, 38.7107],
+            zoom: 14,
+            bearing: -25,
+            pitch: 0
+        });
+
+        var chapters = {
+            'item1': {
+                center: [-77.1392, 38.7107],
+                bearing: -25,
+                zoom: 14,
+                speed: 1,
+                pitch: 0
+            },
+            'item2': {
+                center: [-79.1874, 35.1522],
+                bearing: 0,
+                zoom: 10,
+                speed: 1,
+                pitch: 0
+            },
+            'item3': {
+                center: [8.6937, 49.4082],
+                bearing: 0,
+                zoom: 12,
+                speed: 2,
+                pitch: 0
+            },
+            'item4': {
+                center: [9.1928, 48.7856],
+                bearing: 0,
+                zoom: 12,
+                speed: 1,
+                pitch: 0
+            },
+            'item5': {
+                center: [-110.3194, 31.5607],
+                bearing: 0,
+                zoom: 11,
+                speed: 2,
+                pitch: 30
+            },
+            'item6': {
+                center: [67.228, 36.6838],
+                bearing: 0,
+                zoom: 11,
+                speed: 2,
+                pitch: 0
+            },
+            'item7': {
+                center: [-76.3095, 36.8849],
+                bearing: 0,
+                zoom: 15,
+                speed: 2,
+                pitch: 0
+            },
+            'item8': {
+                center: [-76.503524, 37.108947],
+                bearing: 0,
+                zoom: 16,
+                speed: 1,
+                pitch: 0
+            },
+            'item9': {
+                center: [-87.94878, 41.89702],
+                bearing: 0,
+                zoom: 16,
+                speed: 2,
+                pitch: 0
+            },
+            'item10': {
+                center: [-76.47460, 37.08683],
+                bearing: 0,
+                zoom: 16,
+                speed: 2,
+                pitch: 0
+            }          
+        };
+
+        // On every scroll event, check which element is on screen
+        window.onscroll = function () {
+            var chapterNames = Object.keys(chapters);
+            for (var i = 0; i < chapterNames.length; i++) {
+                var chapterName = chapterNames[i];
+                if (isElementOnScreen(chapterName)) {
+                    setActiveChapter(chapterName);
+                    break;
+                }
+            }
+        };
+
+        var activeChapterName = 'item1';
+        function setActiveChapter(chapterName) {
+            if (chapterName === activeChapterName) return;
+
+            map.flyTo(chapters[chapterName]);
+
+            document.getElementById(chapterName).setAttribute('class', 'active');
+            document.getElementById(activeChapterName).setAttribute('class', '');
+
+            activeChapterName = chapterName;
+        }
+
+        function isElementOnScreen(id) {
+            var element = document.getElementById(id);
+            var bounds = element.getBoundingClientRect();
+            return bounds.top < window.innerHeight && bounds.bottom > 0;
+        }
+
+    </script>
+
+</body>
+</html>
