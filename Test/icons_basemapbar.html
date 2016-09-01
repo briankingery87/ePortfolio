@@ -54,7 +54,26 @@
             }
     </style>
 
-    <div id='map'></div>
+    <div id='map'>
+        <div id='menu'>
+            <input id='basic' type='radio' name='rtoggle' value='basic' checked='checked'>
+            <label for='basic'>basic</label>
+            <input id='streets' type='radio' name='rtoggle' value='streets'>
+            <label for='streets'>streets</label>
+            <input id='bright' type='radio' name='rtoggle' value='bright'>
+            <label for='bright'>bright</label>
+            <input id='light' type='radio' name='rtoggle' value='light'>
+            <label for='light'>light</label>
+            <input id='dark' type='radio' name='rtoggle' value='dark'>
+            <label for='dark'>dark</label>
+            <input id='satellite' type='radio' name='rtoggle' value='satellite'>
+            <label for='satellite'>satellite</label>
+        </div>  
+    </div>
+
+
+  
+  
     <div id='features'>
         <section id='item1' class='active'>
             <h1>US Army - Advanced Individual Training (AIT)</h1>
@@ -249,18 +268,27 @@
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.Navigation());
 
+        // Add top bar that will be able to change basemap
+        var layerList = document.getElementById('menu');
+        var inputs = layerList.getElementsByTagName('input');
+        function switchLayer(layer) {
+            var layerId = layer.target.id;
+            map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
+        }
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = switchLayer;
+        }      
+
+
+
+
+
+
+
+
+
+
         
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
         // Add clickable geojson points to the map      
         map.on('load', function() {
@@ -401,7 +429,33 @@
         map.on('mousemove', function (e) {
             var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
             map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
-        });            
+        });    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+     
+      
+      
+      
+      
       
       
     </script>
