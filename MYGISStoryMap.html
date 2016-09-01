@@ -244,7 +244,10 @@
             var bounds = element.getBoundingClientRect();
             return bounds.top < window.innerHeight && bounds.bottom > 0;
         }
-
+        
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.Navigation());
+        
     </script>
 
 </body>
