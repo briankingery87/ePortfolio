@@ -20,12 +20,15 @@
         }
     </style>
 </head>
+  
 <body>
 
     <style>
         #map {
             position: fixed;
             width: 50%;
+            background-color: #fafafa;
+            border: 1px solid black;
         }
 
         #features {
@@ -39,7 +42,7 @@
         section {
             padding: 25px 50px;
             line-height: 25px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid black;
             opacity: 0.25;
             font-size: 13px;
         }
@@ -54,7 +57,26 @@
             }
     </style>
 
-    <div id='map'></div>
+    <div id='map'>
+        <div id='menu'>
+            <input id='basic' type='radio' name='rtoggle' value='basic' checked='checked'>
+            <label for='basic'>Basic</label>
+            <input id='streets' type='radio' name='rtoggle' value='streets'>
+            <label for='streets'>Streets</label>
+            <input id='bright' type='radio' name='rtoggle' value='bright'>
+            <label for='bright'>Bright</label>
+            <input id='light' type='radio' name='rtoggle' value='light'>
+            <label for='light'>Light</label>
+            <input id='dark' type='radio' name='rtoggle' value='dark'>
+            <label for='dark'>Dark</label>
+            <input id='satellite' type='radio' name='rtoggle' value='satellite'>
+            <label for='satellite'>Satellite</label>
+        </div>  
+    </div>
+
+
+  
+  
     <div id='features'>
         <section id='item1' class='active'>
             <h1>US Army - Advanced Individual Training (AIT)</h1>
@@ -130,6 +152,7 @@
                Newport News Waterworks to do their jobs.</p>        
         </section>
     </div>
+  
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiemFuZGJrIiwiYSI6ImNaU1VBMjAifQ.6zqCsVQyip7Xe1LHkMv8og';
 
@@ -141,7 +164,7 @@
             bearing: -25,
             pitch: 0
         });
-
+      
         var chapters = {
             'item1': {
                 center: [-77.13887, 38.69864],
@@ -244,10 +267,24 @@
             var bounds = element.getBoundingClientRect();
             return bounds.top < window.innerHeight && bounds.bottom > 0;
         }
-        
+    
         // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.Navigation());
-        
+
+        // Add top bar that will be able to change basemap
+        var layerList = document.getElementById('menu');
+        var inputs = layerList.getElementsByTagName('input');
+        function switchLayer(layer) {
+            var layerId = layer.target.id;
+            map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
+        }
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = switchLayer;
+        }      
+
+
+
+      
     </script>
 
 </body>
